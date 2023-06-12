@@ -8,10 +8,10 @@
 #define FAST_I2C
 
 Servo servo;
-Motor fl(7, 8, 6, 1, 9), fr(2, 4, 5, 1, 9), bl(10, 14, 3, 1, 15),
-    br(13, 12, 11, 1, 15);
-LIDARLite_v3HP myLidarLite;
-Adafruit_BNO055 bno = Adafruit_BNO055(12, 0x28, &Wire);
+Motor fl(7, 8, 6, 1, 9), fr(2, 4, 5, 1, 9);
+Motor bl(10, 14, 3, 1, 15), br(13, 12, 11, 1, 15);
+LIDARLite_v3HP lidar_lite;
+Adafruit_BNO055 bno(12, 0x28, &Wire);
 
 void setup() {
   Serial.begin(115200);
@@ -24,7 +24,7 @@ void setup() {
   TWBR = ((F_CPU / 400000UL) - 16) / 2; // Set I2C frequency to 400kHz
 #endif
 #endif
-  myLidarLite.configure(0);
+  lidar_lite.configure(0);
 
   if (!bno.begin()) {
     Serial.println(

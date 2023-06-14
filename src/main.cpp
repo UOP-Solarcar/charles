@@ -15,7 +15,10 @@ Adafruit_BNO055 bno(12, 0x28, &Wire);
 
 void setup() {
   Serial.begin(115200);
-  servo.attach(22);
+  while (servo.attach(22) == INVALID_SERVO) {
+    Serial.println("Invalid Servo on pin 22");
+    delay(500);
+  }
   Wire.begin();
 #ifdef FAST_I2C
 #if ARDUINO >= 157
@@ -26,11 +29,10 @@ void setup() {
 #endif
   lidar_lite.configure(0);
 
-  if (!bno.begin()) {
+  while (!bno.begin()) {
     Serial.println(
         "Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
-    while (true)
-      ;
+    delay(500);
   }
 }
 

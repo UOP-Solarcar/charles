@@ -5,6 +5,10 @@
 #include <SparkFun_TB6612.h>
 #include <Wire.h>
 
+#ifndef MONITOR_SPEED
+#define MONITOR_SPEED 115200
+#endif
+
 #define FAST_I2C
 
 Servo servo;
@@ -14,7 +18,7 @@ LIDARLite_v3HP lidar_lite;
 Adafruit_BNO055 bno(12, 0x28, &Wire);
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(MONITOR_SPEED);
   while (servo.attach(22) == INVALID_SERVO) {
     Serial.println("Invalid Servo on pin 22");
     delay(500);
